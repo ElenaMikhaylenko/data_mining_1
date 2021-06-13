@@ -2,17 +2,17 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import relationship
 
-from sqlalchemy import (
-    Table, Column, Integer, String, ForeignKey
-)
+from sqlalchemy import Table, Column, Integer, String, ForeignKey
 
 
 Base = declarative_base()
 
 
-tag_association = Table("tag_to_post", Base.metadata,
+tag_association = Table(
+    "tag_to_post",
+    Base.metadata,
     Column("tag_id", Integer, ForeignKey("tag.id")),
-    Column("post_id", Integer, ForeignKey("post.id"))
+    Column("post_id", Integer, ForeignKey("post.id")),
 )
 
 
@@ -23,14 +23,18 @@ class Post(Base):
     title = Column(String, nullable=False, unique=False)
     author_id = Column(Integer, ForeignKey("author.id"), nullable=False)
     author = relationship("Author", backref="posts")
-    tag = relationship("Tag",
-                            secondary=tag_association,
-                            backref="posts")
+    tag = relationship("Tag", secondary=tag_association, backref="posts")
 
 
 class Author(Base):
     __tablename__ = "author"
-    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        nullable=False,
+        unique=True,
+        autoincrement=True,
+    )
     url = Column(String(2048), nullable=False, unique=True)
     name = Column(String(250), nullable=False, unique=False)
 

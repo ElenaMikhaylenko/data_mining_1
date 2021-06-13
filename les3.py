@@ -118,9 +118,11 @@ class GbBlogParse:
         author_name_tag = soup.find("div", attrs={"itemprop": "author"})
         data = {
             "post_data": {
-                "title": soup.find("h1", attrs={"class": "blogpost-title"}).text,
+                "title": soup.find(
+                    "h1", attrs={"class": "blogpost-title"}
+                ).text,
                 "url": response.url,
-                'id': int(soup.find("comments").attrs.get("commentable-id")),
+                "id": int(soup.find("comments").attrs.get("commentable-id")),
             },
             "author_data": {
                 "url": urljoin(
@@ -129,7 +131,12 @@ class GbBlogParse:
                 "name": author_name_tag.text,
             },
             "tags_data": [
-                {"name": tag.text, "url": urljoin(response.url, tag.attrs.get("href"))} for tag in soup.find_all("a", attrs={"class": "small"})],
+                {
+                    "name": tag.text,
+                    "url": urljoin(response.url, tag.attrs.get("href")),
+                }
+                for tag in soup.find_all("a", attrs={"class": "small"})
+            ],
             "header_image": self._parse_first_image(soup),
             "published": self._parse_datetime(soup),
             "comments_data": self._parse_comments(soup, response.url),

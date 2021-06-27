@@ -1,4 +1,4 @@
-# Scrapy settings for gb_parse project
+# Scrapy settings for headhunter project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,17 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "gb_parse_18_05"
+BOT_NAME = "headhunter"
 
-LOG_ENABLE = True
-LOG_LEVEL = "DEBUG"
-
-SPIDER_MODULES = ["gb_parse.spiders"]
-NEWSPIDER_MODULE = "gb_parse.spiders"
+SPIDER_MODULES = ["headhunter.spiders"]
+NEWSPIDER_MODULE = "headhunter.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -33,6 +30,9 @@ DOWNLOAD_DELAY = 1.2
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
 
+LOG_ENABLE = True
+LOG_LEVEL = "DEBUG"
+
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = True
 
@@ -42,19 +42,19 @@ TELNETCONSOLE_ENABLED = False
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3",
+    "Accept-Language": "ru",
 }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'gb_parse.middlewares.GbParseSpiderMiddleware': 543,
+#    'headhunter.middlewares.HeadhunterSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'gb_parse.middlewares.GbParseDownloaderMiddleware': 543,
+#    'headhunter.middlewares.HeadhunterDownloaderMiddleware': 543,
 # }
 
 # Enable or disable extensions
@@ -65,9 +65,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'gb_parse.pipelines.GbParsePipeline': 300,
-# }
+ITEM_PIPELINES = {
+    "headhunter.pipelines.HeadhunterPipeline": 300,
+    "headhunter.pipelines.HeadhunterMongoPipeLine": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

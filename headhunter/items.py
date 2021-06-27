@@ -6,7 +6,7 @@
 import scrapy
 
 
-class GbParseItem(scrapy.Item):
+class HeadhunterItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass

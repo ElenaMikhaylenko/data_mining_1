@@ -1,17 +1,16 @@
-import pymongo
 from scrapy.crawler import CrawlerProcess
 from scrapy.settings import Settings
+from headhunter.spiders.hh import HHSpider
 
-from gb_parse.spiders.autoyoula import AutoyoulaSpider
+
+def main() -> None:
+    crawler_settings = Settings()
+    crawler_settings.setmodule("headhunter.settings")
+    crawler_process = CrawlerProcess(settings=crawler_settings)
+    crawler_process.crawl(HHSpider)
+    # Add uk and etc
+    crawler_process.start()
+
 
 if __name__ == "__main__":
-    crawler_settings = Settings()
-    crawler_settings.setmodule("gb_parse.settings")
-    crawler_process = CrawlerProcess(settings=crawler_settings)
-    db_client = pymongo.MongoClient("mongodb://localhost:27017")
-    collection = db_client["data_mining_1"]["cars_info"]
-
-    crawler_process.crawl(
-        AutoyoulaSpider, save_callback=lambda data: collection.insert_one(data)
-    )
-    crawler_process.start()
+    main()

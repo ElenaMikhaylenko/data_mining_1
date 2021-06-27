@@ -8,6 +8,21 @@
 from itemadapter import ItemAdapter
 
 
-class GbParsePipeline:
+from pymongo import MongoClient
+
+from .settings import BOT_NAME
+
+
+class HeadhunterPipeline:
     def process_item(self, item, spider):
+        return item
+
+
+class HeadhunterMongoPipeLine:
+    def __init__(self):
+        client = MongoClient()
+        self.db = client[BOT_NAME]
+
+    def process_item(self, item, spider):
+        self.db[spider.name].insert_one(item)
         return item
